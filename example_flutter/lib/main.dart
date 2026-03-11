@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     if (result.isType<XmppError>()) {
       logger.severe(result.get<XmppError>());
-      if (context.mounted) {
+      if (mounted) {
         showDialog(
           context: context,
           builder: (_) => AlertDialog(
