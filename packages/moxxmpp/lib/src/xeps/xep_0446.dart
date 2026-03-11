@@ -5,7 +5,8 @@ import 'package:moxxmpp/src/xeps/xep_0300.dart';
 
 class FileMetadataData {
   const FileMetadataData({
-    required this.thumbnails, this.mediaType,
+    required this.thumbnails,
+    this.mediaType,
     this.width,
     this.height,
     this.desc,

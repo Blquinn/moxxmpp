@@ -1,4 +1,3 @@
-
 export 'package:moxxmpp/src/connection.dart';
 export 'package:moxxmpp/src/connection_errors.dart';
 export 'package:moxxmpp/src/connectivity.dart';

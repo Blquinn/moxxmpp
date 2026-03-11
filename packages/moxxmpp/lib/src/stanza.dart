@@ -107,7 +107,8 @@ const _stanzaNotDefined = Object();
 class Stanza extends XMLNode {
   // ignore: use_super_parameters
   Stanza({
-    required String tag, this.to,
+    required String tag,
+    this.to,
     this.from,
     this.type,
     this.id,

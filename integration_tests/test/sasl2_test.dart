@@ -24,19 +24,17 @@ void main() {
   test(
     'Test authenticating against Prosody with SASL2, Bind2, and FAST',
     () async {
-      final conn =
-          XmppConnection(
-              TestingReconnectionPolicy(),
-              AlwaysConnectedConnectivityManager(),
-              ClientToServerNegotiator(),
-              TestingTCPSocketWrapper(),
-            )
-            ..connectionSettings = ConnectionSettings(
-              jid: JID.fromString('testuser1@localhost'),
-              password: 'abc123',
-              host: '127.0.0.1',
-              port: 5222,
-            );
+      final conn = XmppConnection(
+        TestingReconnectionPolicy(),
+        AlwaysConnectedConnectivityManager(),
+        ClientToServerNegotiator(),
+        TestingTCPSocketWrapper(),
+      )..connectionSettings = ConnectionSettings(
+          jid: JID.fromString('testuser1@localhost'),
+          password: 'abc123',
+          host: '127.0.0.1',
+          port: 5222,
+        );
       final csi = CSIManager();
       await csi.setInactive(sendNonza: false);
       await conn.registerManagers([

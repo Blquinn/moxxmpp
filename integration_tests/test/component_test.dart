@@ -22,19 +22,17 @@ void main() {
   });
 
   test('Test connecting to prosody as a component', () async {
-    final conn =
-        XmppConnection(
-            TestingReconnectionPolicy(),
-            AlwaysConnectedConnectivityManager(),
-            ComponentToServerNegotiator(),
-            TestingTCPSocketWrapper(),
-          )
-          ..connectionSettings = ConnectionSettings(
-            jid: JID.fromString('component.localhost'),
-            password: 'abc123',
-            host: '127.0.0.1',
-            port: 8888,
-          );
+    final conn = XmppConnection(
+      TestingReconnectionPolicy(),
+      AlwaysConnectedConnectivityManager(),
+      ComponentToServerNegotiator(),
+      TestingTCPSocketWrapper(),
+    )..connectionSettings = ConnectionSettings(
+        jid: JID.fromString('component.localhost'),
+        password: 'abc123',
+        host: '127.0.0.1',
+        port: 8888,
+      );
 
     final result = await conn.connect(
       waitUntilLogin: true,
