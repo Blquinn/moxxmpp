@@ -67,11 +67,11 @@ class ArgumentParser {
 
   /// Construct connection settings from the parsed options.
   ConnectionSettings get connectionSettings => ConnectionSettings(
-    jid: jid,
-    password: options['password']!,
-    host: options['host'],
-    port: (options['port'] as String?)?.toInt(),
-  );
+        jid: jid,
+        password: options['password']!,
+        host: options['host'],
+        port: (options['port'] as String?)?.toInt(),
+      );
 
   /// Construct an xmpps-client SRV record for injection, if specified.
   MoxSrvRecord? get srvRecord {

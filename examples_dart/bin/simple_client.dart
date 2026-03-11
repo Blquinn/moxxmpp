@@ -50,7 +50,8 @@ void main(List<String> args) async {
     // provide your own socket to use, for example, WebSockets or any other connection
     // mechanism.
     TCPSocketWrapper(false),
-  )..connectionSettings = ConnectionSettings(jid: xmppUser, password: xmppPass, host: xmppHost, port: xmppPort);
+  )..connectionSettings = ConnectionSettings(
+      jid: xmppUser, password: xmppPass, host: xmppHost, port: xmppPort);
 
   // Register a set of "managers" that provide you with implementations of various
   // XEPs. Some have interdependencies, which need to be met. However, this example keeps
