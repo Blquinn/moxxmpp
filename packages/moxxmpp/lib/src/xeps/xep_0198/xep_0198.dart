@@ -29,6 +29,7 @@ class StreamManagementManager extends XmppManagerBase {
   }) : super(smManager);
 
   /// The queue of stanzas that are not (yet) acked
+  /// To-do: Replace with different data-structure, probably linked list.
   final Map<int, SMQueueEntry> _unackedStanzas = {};
 
   /// Commitable state of the StreamManagementManager
@@ -387,13 +388,14 @@ class StreamManagementManager extends XmppManagerBase {
   }
 
   // Just a helper function to not increment the counters above xmlUintMax
-  Future<void> _incrementC2S() async {
+  Future<int> _incrementC2S() async {
     logger.fine('_incrementC2S: Waiting to aquire lock...');
-    await _stateLock.synchronized(() async {
+    return _stateLock.synchronized(() async {
       logger.fine('_incrementC2S: Done');
       _state = _state.copyWith(c2s: _state.c2s + 1 % xmlUintMax);
       await commitState();
       logger.fine('_incrementC2S: Releasing lock...');
+      return _state.c2s;
     });
   }
 
@@ -424,20 +426,18 @@ class StreamManagementManager extends XmppManagerBase {
     if (isStreamManagementEnabled()) {
       final smData = state.extensions.get<StreamManagementData>();
       logger.finest('Should count stanza: ${smData?.shouldCountStanza}');
+      var queueId = 0;
       if (smData?.shouldCountStanza ?? true) {
-        await _incrementC2S();
+        queueId = await _incrementC2S();
       }
 
       if (smData?.exclude ?? false) {
         return state;
       }
 
-      int queueId;
       if (smData?.queueId != null) {
         logger.finest('Reusing queue id ${smData!.queueId}');
         queueId = smData.queueId!;
-      } else {
-        queueId = await _stateLock.synchronized(() => _state.c2s);
       }
 
       _unackedStanzas[queueId] = SMQueueEntry(
